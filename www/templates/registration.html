@@ -1,0 +1,58 @@
+<ion-view title="Registration">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <h4>ACCOUNT INFORMATION</h4>
+        <h5>EMAIL *</h5>
+        <form class="list" name="reg1_form" id="reg1_form">
+            
+            <!-- Text box for email -->
+            <label class="item item-input">
+                <input type="email" ng-model="reg.email" name="email" id="email" required  placeholder="youremail@domain.com">
+            </label>
+            <div class="form-error" ng-show="reg1_form.email.$invalid && !reg1_form.email.$pristine" >Enter a valid email.</div>
+            <!-- End of code for email -->
+            
+            <!--country code-->
+            <h5>MOBILE PHONE *</h5>
+            <label class="item item-input">
+                <input type="number" ng-model="reg.countryCode" name="countryCode" id="countryCode" placeholder="country code">
+            </label>
+            
+            
+            <!-- Mobile number-->
+            <label class="item item-input">
+                <input type="number" ng-model="reg.mobile" name="mobile" id="mobile" required placeholder="phone number">
+            </label>
+            
+            <!-- Password -->
+            <h5>PASSWORD *</h5>
+            <label class="item item-input">
+                <input type="password" required ng-model="reg.password" name="password" id="password" pattern=".{6,20}" placeholder="6 -20 alphanumeric characters">
+            </label>
+            
+            <div class="list card">
+                <div class="item item-divider">Profile</div>
+                <div class="item item-body">
+                    <h5>NAME *</h5>
+                    
+                        <!-- First Name -->
+                        <label class="item item-input">
+                            <input type="text" ng-model="reg.first_name" name="first_name" id="first_name" placeholder="First name">
+                        </label>
+                        
+                        <!-- Last Name -->
+                        <label class="item item-input">
+                            <input type="text" ng-model="reg.last_name" name="last_name" id="last_name" placeholder="Last name">
+                        </label>
+                  
+                        <div style="line-height: 250px; border: 1px solid rgb(238, 238, 238); border-radius: 3px; text-align: center; background-color: rgb(255, 255, 255);">
+                            <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+                        </div>
+                      
+                        <button class="button button-positive button-block button-small">TAKE PHOTO</button>
+                        <button class="button button-positive button-block button-small">CHOOSE FROM GALLERY</button>
+                </div>
+            </div>
+            <a class="button button-positive button-block" ng-disabled="reg1_form.$invalid" ng-click="showConfirm()">NEXT</a>
+        </form>
+    </ion-content>
+</ion-view>

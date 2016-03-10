@@ -1,0 +1,30 @@
+<ion-view title="Home">
+    <ion-content overflow-scroll="true" padding="true" scroll="false" class="has-header">
+        <form name="login_form" id="login_form" class="list">
+            <div class="spacer" style="width: 300px; height: 46px;"></div>
+            <div style="text-align:center;">
+                <img src="img/beptXqCNROWr9dMM64Uz_blue-green-logo.png" width="30%" height="auto">
+            </div>
+            
+            <!-- email Text box -->
+            <label class="item item-input">
+                <input type="email" ng-model="user.email" required name="email" placeholder="Enter your email to continue">
+            </label>
+            <div class="form-error" ng-show="login_form.email.$invalid && !login_form.email.$pristine" >Enter a valid email.</div>
+            <!-- END Email Text Box -->
+            
+            <label class="item item-input">
+                <input type="password" required ng-model="user.password" name="password" placeholder="password">
+            </label>
+            <ion-checkbox ng-model="user.rememberme">Remember me</ion-checkbox>
+        </form>
+        <!--ui-sref="myAccount.help" -->
+        <a ng-disabled="login_form.$invalid" class="button button-dark button-block button-small" ng-click="loginUser();">SIGN IN</a>
+        <div class="spacer" style="width: 300px; height: 72px;"></div>
+        <form class="list"></form>
+        <div>
+            <p>Don't have an account?</p>
+        </div>
+        <a ui-sref="registration" class="button button-positive button-block button-small">Create Account</a>
+    </ion-content>
+</ion-view>
