@@ -1,4 +1,4 @@
-angular.module('app.controllers', ['ionic'])
+angular.module('app.controllers', ['ionic']) 
   
 .controller('homeCtrl', function($scope, $ionicLoading, $rootScope) {
   $scope.user = {};
