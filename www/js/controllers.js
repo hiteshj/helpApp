@@ -25,15 +25,14 @@ angular.module('app.controllers', ['ionic'])
 
 })
    
-.controller('registrationCtrl', function($scope, $ionicPopup, $state) {
-
-
+.controller('registrationCtrl', function($scope, $ionicPopup, $state, $rootScope) {
 
   $scope.showConfirm = function() {
-    $scope.data = {};
+    $scope.testData = {};
     // An elaborate, custom popup
     var myPopup = $ionicPopup.confirm({
-      template: '<ion-item class="item-checkbox"><label class="checkbox"><input type="checkbox" required ng-model="data.inputCheckbox"></label>I confirm that I have read Help App’s Terms and Conditions and Privacy Policy and accept them by selecting the checkbox.</ion-item>',
+      template: '<ion-item class="item-checkbox"><label class="checkbox"><input type="checkbox"  ng-model="testData.disclaimer" name="disclaimer" value="1"></label>I confirm that I have read Help App’s Terms and Conditions and Privacy Policy and accept them by selecting the checkbox.</ion-item>',
+      scope:$scope,
       title: ' ',
       subTitle: ' ',
       buttons: [
@@ -44,10 +43,18 @@ angular.module('app.controllers', ['ionic'])
 	  }
 	},
 	{
-	  text: '<ion-item><input type="submit" class="button" ui-sref="tab.newpost>Next</ion-item>',
+	  text: '<ion-item><input type="submit" ng-disabled="testData.disclaimer" class="button" ui-sref="tab.newpost>Next</ion-item>',
 	  type: 'button-positive',
 	  onTap: function(e) {
-	    return $state.go('registration2');
+	    if ($scope.testData.disclaimer == true){
+	      // send test data to the server. then respond to next screen
+	      $rootScope.userDetail = {};
+	      $rootScope.userDetail.mobile = 9041002826;
+	      return $state.go('registration2');
+	    }
+	    else{
+	      return false;
+	    }
 	  }
 	}
       ]
@@ -57,36 +64,66 @@ angular.module('app.controllers', ['ionic'])
 
 })
    
-.controller('registration2Ctrl', function($scope) {
+.controller('registration2Ctrl', function($scope, $state) {
+  $scope.reg2 = {};
+  $scope.resendCode = function(){
+    //code to resend OTP to user
+    console.log($scope.reg2);
+  }
+  
+  $scope.checkCode = function(){
+    // code to check code is it wrong or write
+    $state.go('registration3');
+  
+  }
+  
+  
 
 })
    
 .controller('registration3Ctrl', function($scope, $ionicPopup, $state) {
 
-	$scope.showConfirm = function() {
-  $scope.data = {};
-
-  // An elaborate, custom popup
-  var myPopup = $ionicPopup.confirm({
-    template: '<center>Please confirm your email address. The verification email has been sent to: <br> <b> jsmith@email.com</b></center>',
-    title: 'Thanks for signing up for Help!',
-    subTitle: ' ',
-    buttons: [
-      { text: 'Resend Email',
-      	 },
-      {
-        text: '<ion-item><input type="submit" class="button" ui-sref="tab.newpost>Next</ion-item>',
-        type: 'button-positive',
-        onTap: function(e) {
-          return $state.go('myAccount.help');
-        }
-      }
-    ]
-  });
-
-
- };
-
+  
+  $scope.save_payment = function(type){
+    if (type == "continue") {
+      $scope.showConfirm();
+    }
+    else{
+      console.log("save payment");
+      $scope.showConfirm();
+    }
+  }
+  
+  $scope.ResendEmail = function(){
+    console.log("data");
+    $scope.showConfirm();
+  }
+  
+  $scope.showConfirm = function() {
+    $scope.data = {};
+    // An elaborate, custom popup
+    var myPopup = $ionicPopup.confirm({
+		      template: '<center>Please confirm your email address. The verification email has been sent to: <br> <b> jsmith@email.com</b></center>',
+		      title: 'Thanks for signing up for Help!',
+		      subTitle: ' ',
+		      buttons: [
+			{
+			  text: '<ion-item><input type="submit" class="button">Nexst</ion-item>',
+			  onTab:function(e){
+			    console.log("sdsd");
+			    $scope.ResendEmail();
+			  }
+			},
+			{
+			  text: '<ion-item><input type="submit" class="button" ui-sref="tab.newpost>Next</ion-item>',
+			  type: 'button-positive',
+			  onTap: function(e) {
+			    return $state.go('myAccount.help');
+			  }
+			}
+		      ]
+		  });
+  };
 })
    
 .controller('helpCtrl', function($scope) {

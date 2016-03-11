@@ -8,26 +8,31 @@
             <label class="item item-input">
                 <input type="email" ng-model="reg.email" name="email" id="email" required  placeholder="youremail@domain.com">
             </label>
-            <div class="form-error" ng-show="reg1_form.email.$invalid && !reg1_form.email.$pristine" >Enter a valid email.</div>
+            <div class="form-error" ng-show="reg1_form.email.$dirty && reg1_form.email.$error.required" >Please enter email address.</div>
+            <div class="form-error" ng-show="reg1_form.email.$dirty && reg1_form.email.$error.email" >Please enter valid email address.</div>
+            
             <!-- End of code for email -->
             
             <!--country code-->
             <h5>MOBILE PHONE *</h5>
             <label class="item item-input">
-                <input type="number" ng-model="reg.countryCode" name="countryCode" id="countryCode" placeholder="country code">
+                <input type="number" required ng-model="reg.countryCode" name="countryCode" id="countryCode" placeholder="country code">
             </label>
-            
+            <div class="form-error" ng-show="reg1_form.countryCode.$dirty && reg1_form.countryCode.$error.required" >Please enter country code.</div>
             
             <!-- Mobile number-->
             <label class="item item-input">
                 <input type="number" ng-model="reg.mobile" name="mobile" id="mobile" required placeholder="phone number">
             </label>
+            <div class="form-error" ng-show="reg1_form.mobile.$dirty && reg1_form.mobile.$error.required" >Please enter phone number.</div>
             
             <!-- Password -->
             <h5>PASSWORD *</h5>
             <label class="item item-input">
                 <input type="password" required ng-model="reg.password" name="password" id="password" pattern=".{6,20}" placeholder="6 -20 alphanumeric characters">
             </label>
+            <div class="form-error" ng-show="reg1_form.password.$dirty && reg1_form.password.$error.required" >Please enter password.</div>
+            <div class="form-error" ng-show="reg1_form.password.$dirty && reg1_form.password.$error.pattern" >Password should be between 6 to 20.</div>
             
             <div class="list card">
                 <div class="item item-divider">Profile</div>
@@ -52,7 +57,7 @@
                         <button class="button button-positive button-block button-small">CHOOSE FROM GALLERY</button>
                 </div>
             </div>
-            <a class="button button-positive button-block" ng-disabled="reg1_form.$invalid" ng-click="showConfirm()">NEXT</a>
+            <a class="button button-positive button-block" ng-disabled="reg1_form.$invalid"  ng-click="showConfirm()">NEXT</a>
         </form>
     </ion-content>
 </ion-view>

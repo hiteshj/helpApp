@@ -1,19 +1,23 @@
 <ion-view title="Registration">
     <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <form class="list">
+        <form class="list" name="reg3_form" id="reg3_form">
             <h4>PAYMENT INFORMATION</h4>
             <h5>CREDIT CARD NUMBER</h5>
             <label class="item item-input">
-                <input type="text" placeholder="">
+                <input type="text" name="cc_number" id="cc_number" ng-model="reg3.cc_number" required placeholder="">
             </label>
+            <div class="form-error" ng-show="reg3_form.cc_number.$dirty && reg3_form.cc_number.$error.required" >Please enter card number.</div>
+            
             <h5>NAME</h5>
             <label class="item item-input">
-                <input type="text" placeholder="as it appears on card">
+                <input type="text" name="cc_name" id="cc_name" ng-model="reg3.cc_name" required placeholder="as it appears on card">
             </label>
+            <div class="form-error" ng-show="reg3_form.cc_name.$dirty && reg3_form.cc_name.$error.required" >Please enter card name.</div>
+            
             <h5>EXP DATE</h5>
             <label class="item item-select">
                 <span class="input-label">Month</span>
-                <select>
+                <select name="cc_month" id="cc_month" ng-model="reg3.cc_month">
                     <option>2016</option>
                     <option>2017</option>
                     <option>2018</option>
@@ -30,7 +34,7 @@
             </label>
             <label class="item item-select">
                 <span class="input-label">Year</span>
-                <select>
+                <select name="cc_year" id="cc_year" ng-model="reg3.cc_year">
                     <option>2016</option>
                     <option>2017</option>
                     <option>2018</option>
@@ -47,12 +51,12 @@
             </label>
             <h5>SECURITY CODE</h5>
             <label class="item item-input">
-                <input type="text" placeholder="3 or 4 digit code">
+                <input type="text" required name="cc_ccv" id="cc_ccv" ng-model="reg3.cc_ccv" placeholder="3 or 4 digit code">
             </label>
-            <a ui-sref=" " class="button button-positive button-block" ng-click="showConfirm()">NEXT</a>
+            <div class="form-error" ng-show="reg3_form.cc_ccv.$dirty && reg3_form.cc_ccv.$error.required" >Please enter security code.</div>
+            
+            <a class="button button-positive button-block" ng-click="save_payment('continue')">Skip For Now</a>
+            <a class="button button-positive button-block" ng-disabled="reg3_form.$invalid" ng-click="save_payment('next')">NEXT</a>
         </form>
-        <form class="list"></form>
-        <form class="list"></form>
-        <form class="list"></form>
     </ion-content>
 </ion-view>
