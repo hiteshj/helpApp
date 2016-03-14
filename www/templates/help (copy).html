@@ -13,20 +13,17 @@
                             Update
                      </button>
                     <h5>UPDATE PASSWORD</h5>
-                        <label class="item item-input"> 
+                        <label class="item item-input">
                             <input type="password" ng-model="account.current_password"  ng-required='!!account.new_password' placeholder="Current password">
                         </label>
-                       
-                         <label class="item item-input" ng-class="{'has-error':account.new_password.$invalid && !account.new_password.$pristine}">
-                         <input type="password" id="password" name="password" ng-required='!!account_form.new_password'  ng-required='!!account_form.new_password'  ng-model="account.new_password"  placeholder="New password" required />
+                        <label class="item item-input">
+                            <input type="password" ng-model="account.new_password"  ng-required='!!account_form.new_password' placeholder="New 6-20 alphanumeric characters password">
                         </label>
-                    
-                        
-                        <label class="item item-input" ng-class="{'has-error':account.confirm_password.$invalid && !account.confirm_password.$pristine}">
-                          <label for="confirm_password"></label>
-                          <input type="password" id="confirm_password" name="confirm_password"   ng-required='!!account.new_password' ng-model="account.confirm_password" placeholder="confirm password" valid-password-c="account.new_password" required />
-                       </label>
-                        <div ng-show="account_form.confirm_password.$error.noMatch" class="form-error">Passwords do not match.</div>
+                        <label class="item item-input">
+                            <input type="password" ng-model="account.confirm_password"  ng-required='!!account.new_password' placeholder="Retype password"compare-to="account.new_password">
+                        </label>
+                        <div ng-messages="account.confirm_password.$error"
+                           >  Please enter email address.</div>
                         <h5>EMAIL <span> * </span></h5>
                         <label class="item item-input">
                             <span class="input-label">name@domain.com</span>
@@ -165,12 +162,12 @@
 
                                     <h5>Card Number</h5>
                                     <label class="item item-input">
-                                          <input type="number" ng-model="payment.cc_number" name="cc_number" id="cc_number" required pattern=".{10}">
+                                          <input type="number" ng-model="payment.cc)" name="zipcode" id="zipcode" required pattern=".{6}">
                                     </label>
-                                    <div class="form-error" ng-show="payment_form{{$index +1}}.cc_number.$dirty && payment_form{{$index +1}}.cc_number.$error.pattern" >
-                                        Only 10 digit allowed.
+                                    <div class="form-error" ng-show="location_form{{$index +1}}.zipcode.$dirty && location_form{{$index +1}}.zipcode.$error.pattern" >
+                                        Only 6 digit allowed.
                                     </div>
-                                    <div class="form-error" ng-show="payment_form{{$index +1}}.cc_number.$dirty && payment_form{{$index +1}}.cc_number.$error.number" >
+                                    <div class="form-error" ng-show="location_form{{$index +1}}.zipcode.$dirty && location_form{{$index +1}}.zipcode.$error.number" >
                                         Please enter valid number.
                                     </div>
 
@@ -209,17 +206,11 @@
                                             <option>2027</option>
                                         </select>
                                     </label>
-                                    
                                     <h5>SECURITY CODE</h5>
                                     <label class="item item-input">
-                                          <input type="number" ng-model="payment.cc_ccv" name="cc_ccv" id="cc_ccv" required pattern=".{3}">
+                                        <input type="text" required name="cc_ccv" id="cc_ccv" ng-model="payment.cc_ccv" placeholder="3 or 4 digit code">
                                     </label>
-                                    <div class="form-error" ng-show="payment_form{{$index +1}}.cc_ccv.$dirty && payment_form{{$index +1}}.cc_ccv.$error.pattern" >
-                                        Only 3 digit allowed.
-                                    </div>
-                                    <div class="form-error" ng-show="payment_form{{$index +1}}.cc_ccv.$dirty && payment_form{{$index +1}}.cc_number.$error.number" >
-                                        Please enter valid number.
-                                    </div>
+                                    <div class="form-error" ng-show="payment_form.cc_ccv.$dirty && payment_form.cc_ccv.$error.required" >Please enter security code.</div>
                                     
                                 </form>
                             </div>

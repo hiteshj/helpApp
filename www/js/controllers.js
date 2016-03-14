@@ -1,9 +1,12 @@
-angular.module('app.controllers', ['ionic']) 
+var app=angular.module('app.controllers', ['ionic'])
+
+
   
 .controller('homeCtrl', function($scope, $ionicLoading, $rootScope) {
   $scope.user = {};
   $scope.error = {};
   $ionicLoading.hide();
+
   
   $scope.loginUser = function(){
     $ionicLoading.show({
@@ -24,6 +27,8 @@ angular.module('app.controllers', ['ionic'])
   }
 
 })
+
+
    
 .controller('registrationCtrl', function($scope, $ionicPopup, $state, $rootScope) {
 
@@ -36,27 +41,27 @@ angular.module('app.controllers', ['ionic'])
       title: ' ',
       subTitle: ' ',
       buttons: [
-	{
-	  text: 'Cancel',
-	  onTap: function(e) {
-	    return $state.go('home');
-	  }
-	},
-	{
-	  text: '<ion-item><input type="submit" ng-disabled="testData.disclaimer" class="button" ui-sref="tab.newpost>Next</ion-item>',
-	  type: 'button-positive',
-	  onTap: function(e) {
-	    if ($scope.testData.disclaimer == true){
-	      // send test data to the server. then respond to next screen
-	      $rootScope.userDetail = {};
-	      $rootScope.userDetail.mobile = 9041002826;
-	      return $state.go('registration2');
-	    }
-	    else{
-	      return false;
-	    }
-	  }
-	}
+    {
+      text: 'Cancel',
+      onTap: function(e) {
+        return $state.go('home');
+      }
+    },
+    {
+      text: '<ion-item><input type="submit" ng-disabled="testData.disclaimer" class="button" ui-sref="tab.newpost>Next</ion-item>',
+      type: 'button-positive',
+      onTap: function(e) {
+        if ($scope.testData.disclaimer == true){
+          // send test data to the server. then respond to next screen
+          $rootScope.userDetail = {};
+          $rootScope.userDetail.mobile = 9041002826;
+          return $state.go('registration2');
+        }
+        else{
+          return false;
+        }
+      }
+    }
       ]
     });
   };
@@ -103,30 +108,100 @@ angular.module('app.controllers', ['ionic'])
     $scope.data = {};
     // An elaborate, custom popup
     var myPopup = $ionicPopup.confirm({
-		      template: '<center>Please confirm your email address. The verification email has been sent to: <br> <b> jsmith@email.com</b></center>',
-		      title: 'Thanks for signing up for Help!',
-		      subTitle: ' ',
-		      buttons: [
-			{
-			  text: '<ion-item><input type="submit" class="button">Nexst</ion-item>',
-			  onTab:function(e){
-			    console.log("sdsd");
-			    $scope.ResendEmail();
-			  }
-			},
-			{
-			  text: '<ion-item><input type="submit" class="button" ui-sref="tab.newpost>Next</ion-item>',
-			  type: 'button-positive',
-			  onTap: function(e) {
-			    return $state.go('myAccount.help');
-			  }
-			}
-		      ]
-		  });
+              template: '<center>Please confirm your email address. The verification email has been sent to: <br> <b> jsmith@email.com</b></center>',
+              title: 'Thanks for signing up for Help!',
+              subTitle: ' ',
+              buttons: [
+            {
+              text: '<ion-item><input type="submit" class="button">Nexst</ion-item>',
+              onTab:function(e){
+                console.log("sdsd");
+                $scope.ResendEmail();
+              }
+            },
+            {
+              text: '<ion-item><input type="submit" class="button" ui-sref="tab.newpost>Next</ion-item>',
+              type: 'button-positive',
+              onTap: function(e) {
+                return $state.go('myAccount.help');
+              }
+            }
+              ]
+          });
   };
 })
    
 .controller('helpCtrl', function($scope) {
+    $scope.accountForms = [{id: 'form1'}];
+    $scope.paymentForms = [{id: 'form1'}];
+
+
+
+
+
+
+$scope.accountInformation=function (account) {
+
+// alert(account.email)
+
+   
+  }
+
+ 
+  $scope.location_form = new Array();
+  $scope.location_form[1]=true;
+  $scope.addNewAdress = function() {
+   var newItemNo = $scope.accountForms.length+1;
+   $scope.accountForms.push({'id':'accountForms'+newItemNo});
+
+    if($scope.accountForms.length==newItemNo){
+      $scope.location_form[newItemNo]=true;
+      for(var i=0;i<$scope.accountForms.length;i++){
+                $scope.location_form[i]=false;
+
+      }
+    }
+    
+    
+
+  };
+
+   $scope.locationInformation=function (location) {
+
+alert(location.address_title)
+
+   
+  }
+
+
+  $scope.payment_form = new Array();
+  $scope.payment_form[1]=true;
+  $scope.addNewCard = function() {
+
+   var newItemNo = $scope.paymentForms.length+1;
+
+   $scope.paymentForms.push({'id':'accountForms'+newItemNo});
+
+    if($scope.paymentForms.length==newItemNo){
+      $scope.payment_form[newItemNo]=true;
+      for(var i=0;i<$scope.paymentForms.length;i++){
+                $scope.payment_form[i]=false;
+      }
+    }
+   };
+
+
+   $scope.editAccountInformation=function(formIndex){
+
+    $scope.location_form[formIndex] = $scope.location_form[formIndex] === false ? true: false;
+      
+   }
+  $scope.editPaymentInformation=function(formIndex){
+
+    $scope.payment_form[formIndex] = $scope.payment_form[formIndex] === false ? true: false;
+      
+    }
+
   /*$(function() {
     var select = $( "#minbeds" );
     var slider = $( "<div id='slider'></div>" ).insertAfter( select ).slider({
@@ -153,4 +228,28 @@ angular.module('app.controllers', ['ionic'])
 .controller('loginCtrl', function($scope) {
 
 })
+
+app.directive('validPasswordC', function() {
+  return {
+    require: 'ngModel',
+    scope: {
+
+      reference: '=validPasswordC'
+
+    },
+    link: function(scope, elm, attrs, ctrl) {
+      ctrl.$parsers.unshift(function(viewValue, $scope) {
+
+        var noMatch = viewValue != scope.reference
+        ctrl.$setValidity('noMatch', !noMatch);
+        return (noMatch)?noMatch:undefined;
+      });
+
+      scope.$watch("reference", function(value) {;
+        ctrl.$setValidity('noMatch', value === ctrl.$viewValue);
+
+      });
+    }
+  }
+});
  
