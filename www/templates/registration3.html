@@ -4,9 +4,10 @@
             <h4>PAYMENT INFORMATION</h4>
             <h5>CREDIT CARD NUMBER</h5>
             <label class="item item-input">
-                <input type="text" name="cc_number" id="cc_number" ng-model="reg3.cc_number" required placeholder="">
+                <input type="number" name="cc_number" id="cc_number" ng-model="reg3.cc_number" required placeholder="">
             </label>
             <div class="form-error" ng-show="reg3_form.cc_number.$dirty && reg3_form.cc_number.$error.required" >Please enter card number.</div>
+            <div class="form-error" ng-show="reg3_form.cc_number.$dirty && reg3_form.cc_number.$error.number" >Please enter valid card number.</div>
             
             <h5>NAME</h5>
             <label class="item item-input">
@@ -51,9 +52,11 @@
             </label>
             <h5>SECURITY CODE</h5>
             <label class="item item-input">
-                <input type="text" required name="cc_ccv" id="cc_ccv" ng-model="reg3.cc_ccv" placeholder="3 or 4 digit code">
+                <input type="number" pattern=".{4,5}" required name="cc_ccv" id="cc_ccv" ng-model="reg3.cc_ccv" placeholder="3 or 4 digit code">
             </label>
             <div class="form-error" ng-show="reg3_form.cc_ccv.$dirty && reg3_form.cc_ccv.$error.required" >Please enter security code.</div>
+            <div class="form-error" ng-show="reg3_form.cc_ccv.$dirty && reg3_form.cc_ccv.$error.pattern" >Security code either 3 or 4 digit.</div>
+            <div class="form-error" ng-show="reg3_form.cc_ccv.$dirty && reg3_form.cc_ccv.$error.number" >Please enter valid number.</div>
             
             <a class="button button-positive button-block" ng-click="save_payment('continue')">Skip For Now</a>
             <a class="button button-positive button-block" ng-disabled="reg3_form.$invalid" ng-click="save_payment('next')">NEXT</a>

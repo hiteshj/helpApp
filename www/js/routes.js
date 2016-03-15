@@ -10,14 +10,14 @@ angular.module('app.routes', [])
     
   
 
-      .state('home', {
-    url: '/page1',
+  .state('home', {
+    url: '/login',
     templateUrl: 'templates/home.html',
     controller: 'homeCtrl'
   })
 
   .state('registration', {
-    url: '/reg',
+    url: '/signup',
     templateUrl: 'templates/registration.html',
     controller: 'registrationCtrl'
   })
@@ -66,7 +66,7 @@ angular.module('app.routes', [])
     controller: 'loginCtrl'
   })
 
-$urlRouterProvider.otherwise('/page1')
+$urlRouterProvider.otherwise('/login')
 
   
 

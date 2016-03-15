@@ -1,35 +1,32 @@
-var app=angular.module('app.controllers', ['ionic'])
+angular.module('app.controllers', ['ionic'])
 
-
+//* Homepage Contoller *//
   
-.controller('homeCtrl', function($scope, $ionicLoading, $rootScope) {
-  $scope.user = {};
-  $scope.error = {};
-  $ionicLoading.hide();
+.controller('homeCtrl', function($scope, $ionicLoading, $timeout,$rootScope, $state) {
+      $scope.user = {};
+      $scope.error = {};
+      $ionicLoading.hide();
+      $scope.loginUser = function(){
+            $ionicLoading.show({
+             content: 'Loading',
+             animation: 'fade-in',
+             showBackdrop: true,
+             maxWidth: 200,
+             showDelay: 0
+            });
+            $scope.rememberme = false;
+             if (typeof $scope.user.rememberme != "undefined") {
+              $scope.rememberme = $scope.user.rememberme;
+            }
+            $state.go('myAccount.help')
 
-  
-  $scope.loginUser = function(){
-    $ionicLoading.show({
-      content: 'Loading',
-      animation: 'fade-in',
-      showBackdrop: true,
-      maxWidth: 200,
-      showDelay: 0
-    });
-    $scope.rememberme = false;
-    if (typeof $scope.user.rememberme != "undefined") {
-      $scope.rememberme = $scope.user.rememberme;
-    }
-    
-    //we need to add sign API get get response
-    
-    
-  }
-
+      }
+     
+      
 })
 
+//* Registration  Contoller *//
 
-   
 .controller('registrationCtrl', function($scope, $ionicPopup, $state, $rootScope) {
 
   $scope.showConfirm = function() {
@@ -40,8 +37,7 @@ var app=angular.module('app.controllers', ['ionic'])
       scope:$scope,
       title: ' ',
       subTitle: ' ',
-      buttons: [
-    {
+      buttons: [{
       text: 'Cancel',
       onTap: function(e) {
         return $state.go('home');
@@ -65,31 +61,25 @@ var app=angular.module('app.controllers', ['ionic'])
       ]
     });
   };
-
-
 })
-   
+
+//* Registration  Contoller2  *//
+
 .controller('registration2Ctrl', function($scope, $state) {
   $scope.reg2 = {};
   $scope.resendCode = function(){
-    //code to resend OTP to user
     console.log($scope.reg2);
   }
-  
   $scope.checkCode = function(){
-    // code to check code is it wrong or write
     $state.go('registration3');
-  
   }
-  
-  
-
 })
    
+//* Registration  Contoller3 *//
+
 .controller('registration3Ctrl', function($scope, $ionicPopup, $state) {
 
-  
-  $scope.save_payment = function(type){
+   $scope.save_payment = function(type){
     if (type == "continue") {
       $scope.showConfirm();
     }
@@ -98,12 +88,10 @@ var app=angular.module('app.controllers', ['ionic'])
       $scope.showConfirm();
     }
   }
-  
   $scope.ResendEmail = function(){
     console.log("data");
     $scope.showConfirm();
   }
-  
   $scope.showConfirm = function() {
     $scope.data = {};
     // An elaborate, custom popup
@@ -131,125 +119,91 @@ var app=angular.module('app.controllers', ['ionic'])
   };
 })
    
-.controller('helpCtrl', function($scope) {
-    $scope.accountForms = [{id: 'form1'}];
-    $scope.paymentForms = [{id: 'form1'}];
+//* Help  Contoller *// 
 
+.controller('helpCtrl', function($scope, $http,$timeout, $ionicLoading, $timeout) {
+$timeout(function () {
+              $ionicLoading.hide();
+        },1000);
+  $timeout(function () {
+    $ionicLoading.hide();
+  }, 2000);
+  
+  //console.log('helpCtrl')
 
+  $scope.accountForms = [{id: 'form1'}];
+  $scope.paymentForms = [{id: 'form1'}];
 
-
-
-
-$scope.accountInformation=function (account) {
-
-// alert(account.email)
-
-   
+  $scope.accountInformation=function (account) {
+        baseUrl="http://localhost:3001/account_information";
+        $http({
+           method: 'POST',
+           url: baseUrl,
+           data:'mail='+account.email+ '&mobile=' + account.mobile,
+           headers:{'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success (function() {
+          console.log("posted successfully");
+        });
   }
 
- 
   $scope.location_form = new Array();
   $scope.location_form[1]=true;
   $scope.addNewAdress = function() {
-   var newItemNo = $scope.accountForms.length+1;
-   $scope.accountForms.push({'id':'accountForms'+newItemNo});
-
+    var newItemNo = $scope.accountForms.length+1;
+    $scope.accountForms.push({'id':'accountForms'+newItemNo});
     if($scope.accountForms.length==newItemNo){
-      $scope.location_form[newItemNo]=true;
-      for(var i=0;i<$scope.accountForms.length;i++){
-                $scope.location_form[i]=false;
+          $scope.location_form[newItemNo]=true;
+          for(var i=0;i<$scope.accountForms.length;i++){
+                    $scope.location_form[i]=false;
 
-      }
-    }
-    
-    
+          }
+        }
+    };
 
-  };
-
-   $scope.locationInformation=function (location) {
-
-alert(location.address_title)
-
-   
+  $scope.locationInformation=function (location) {
+    console.log(location.address_title)
   }
 
 
   $scope.payment_form = new Array();
   $scope.payment_form[1]=true;
+
   $scope.addNewCard = function() {
-
-   var newItemNo = $scope.paymentForms.length+1;
-
-   $scope.paymentForms.push({'id':'accountForms'+newItemNo});
-
+    var newItemNo = $scope.paymentForms.length+1;
+    $scope.paymentForms.push({'id':'accountForms'+newItemNo});
     if($scope.paymentForms.length==newItemNo){
-      $scope.payment_form[newItemNo]=true;
-      for(var i=0;i<$scope.paymentForms.length;i++){
-                $scope.payment_form[i]=false;
+        $scope.payment_form[newItemNo]=true;
+        for(var i=0;i<$scope.paymentForms.length;i++){
+          $scope.payment_form[i]=false;
+        }
       }
-    }
-   };
+  };
 
 
-   $scope.editAccountInformation=function(formIndex){
+  $scope.editAccountInformation=function(formIndex){
+   $scope.location_form[formIndex] = $scope.location_form[formIndex] === false ? true: false;  
+  }
 
-    $scope.location_form[formIndex] = $scope.location_form[formIndex] === false ? true: false;
-      
-   }
   $scope.editPaymentInformation=function(formIndex){
-
     $scope.payment_form[formIndex] = $scope.payment_form[formIndex] === false ? true: false;
-      
-    }
-
-  /*$(function() {
-    var select = $( "#minbeds" );
-    var slider = $( "<div id='slider'></div>" ).insertAfter( select ).slider({
-      min: 1,
-      max: 6,
-      range: "min",
-      value: select[ 0 ].selectedIndex + 1,
-      slide: function( event, ui ) {
-        select[ 0 ].selectedIndex = ui.value - 1;
-      }
-    });
-    $( "#minbeds" ).change(function() {
-      slider.slider( "value", this.selectedIndex + 1 );
-    });
-  });
-  */
+  }
 
 })
-   
+
+//* Help  Contoller2*// 
+
 .controller('help2Ctrl', function($scope) {
+  $ionicLoading.hide();
+})
 
+//* Main  Contoller2*// 
+
+.controller('MainHomeCtrl', function($scope) {
+  $ionicLoading.hide();
 })
       
+//* Help  Contoller3 *//       
 .controller('loginCtrl', function($scope) {
 
 })
 
-app.directive('validPasswordC', function() {
-  return {
-    require: 'ngModel',
-    scope: {
-
-      reference: '=validPasswordC'
-
-    },
-    link: function(scope, elm, attrs, ctrl) {
-      ctrl.$parsers.unshift(function(viewValue, $scope) {
-
-        var noMatch = viewValue != scope.reference
-        ctrl.$setValidity('noMatch', !noMatch);
-        return (noMatch)?noMatch:undefined;
-      });
-
-      scope.$watch("reference", function(value) {;
-        ctrl.$setValidity('noMatch', value === ctrl.$viewValue);
-
-      });
-    }
-  }
-});
- 

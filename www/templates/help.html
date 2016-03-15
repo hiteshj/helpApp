@@ -1,32 +1,24 @@
 <ion-view title="Help">
     <ion-content overflow-scroll="true" padding="false" class="has-header">
-        <ion-list>
-                <ion-item ui-sref="myAccount.help" menu-close="">Maps</ion-item>
-                <ion-item ui-sref="myAccount.help2" menu-close="">My Post</ion-item>
-            </ion-list>
-            <div class="list card">
-                <div class="item item-divider">Account Information</div>
+       <div class="align-center register item">
+               Registration
+            </div>
+            <div class="list">
+                <div>Account Information</div>
                 <div class="item item-body">
                
                      <form class="list" name="account_form" id="account_form">
-                     <button class="button button-balanced button-block" ng-disabled="account_form.$invalid" ng-click="accountInformation(account)">
-                            Update
-                     </button>
+     <button class="button button-balanced button-block" ng-disabled="account_form.$invalid" ng-click="accountInformation(account)">Update</button>
                     <h5>UPDATE PASSWORD</h5>
-                        <label class="item item-input"> 
+                        <label class="item item-input">
                             <input type="password" ng-model="account.current_password"  ng-required='!!account.new_password' placeholder="Current password">
                         </label>
-                       
-                         <label class="item item-input" ng-class="{'has-error':account.new_password.$invalid && !account.new_password.$pristine}">
-                         <input type="password" id="password" name="password" ng-required='!!account_form.new_password'  ng-required='!!account_form.new_password'  ng-model="account.new_password"  placeholder="New password" required />
+                        <label class="item item-input">
+                            <input type="password" ng-model="account.new_password"  ng-required='!!account_form.new_password' placeholder="New 6-20 alphanumeric characters password">
                         </label>
-                    
-                        
-                        <label class="item item-input" ng-class="{'has-error':account.confirm_password.$invalid && !account.confirm_password.$pristine}">
-                          <label for="confirm_password"></label>
-                          <input type="password" id="confirm_password" name="confirm_password"   ng-required='!!account.new_password' ng-model="account.confirm_password" placeholder="confirm password" valid-password-c="account.new_password" required />
-                       </label>
-                        <div ng-show="account_form.confirm_password.$error.noMatch" class="form-error">Passwords do not match.</div>
+                        <label class="item item-input">
+                            <input type="password" ng-model="account.confirm_password"  ng-required='!!account.new_password' placeholder="Retype password">
+                        </label>
                         <h5>EMAIL <span> * </span></h5>
                         <label class="item item-input">
                             <span class="input-label">name@domain.com</span>
@@ -65,8 +57,8 @@
                                         <span class="input-label">Last name</span>
                                         <input type="text" ng-model="account.last_name" name="last_name" id="last_name" placeholder="Last name" >
                                     </label>
-                               <div style="line-height: 250px; border: 1px solid rgb(238, 238, 238); border-radius: 3px; text-align: center; background-color: rgb(255, 255, 255);">
-                                    <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
+                               <div class="icon-wrapper-registration">
+                                    <i class="icon ion-image icon-wrapper-registration"></i>
                                 </div>
                                 <button class="button button-positive button-block button-small">TAKE YOUR PHOTO</button>
                                 <button class="button button-positive button-block button-small">CHOOSE FROM GALLERY</button>
@@ -163,17 +155,11 @@
                                     </label>
                                     <div class="form-error" ng-show="payment_form.cc_name.$dirty && payment_form.cc_name.$error.required" >Please enter card name.</div>
 
-                                    <h5>Card Number</h5>
+                                    <h5>CARD NUMBER</h5>
                                     <label class="item item-input">
-                                          <input type="number" ng-model="payment.cc_number" name="cc_number" id="cc_number" required pattern=".{10}">
+                                        <input type="text" name="cc_number" id="cc_number" ng-model="payment.cc_number" required placeholder="">
                                     </label>
-                                    <div class="form-error" ng-show="payment_form{{$index +1}}.cc_number.$dirty && payment_form{{$index +1}}.cc_number.$error.pattern" >
-                                        Only 10 digit allowed.
-                                    </div>
-                                    <div class="form-error" ng-show="payment_form{{$index +1}}.cc_number.$dirty && payment_form{{$index +1}}.cc_number.$error.number" >
-                                        Please enter valid number.
-                                    </div>
-
+                                    <div class="form-error" ng-show="payment_form.cc_number.$dirty && payment_form.cc_number.$error.required" >Please enter card number.</div>
                                     <h5>Expiration Date</h5>
                                     <label class="item item-select">
                                         <span class="input-label">Month</span>
@@ -209,17 +195,11 @@
                                             <option>2027</option>
                                         </select>
                                     </label>
-                                    
                                     <h5>SECURITY CODE</h5>
                                     <label class="item item-input">
-                                          <input type="number" ng-model="payment.cc_ccv" name="cc_ccv" id="cc_ccv" required pattern=".{3}">
+                                        <input type="text" required name="cc_ccv" id="cc_ccv" ng-model="payment.cc_ccv" placeholder="3 or 4 digit code">
                                     </label>
-                                    <div class="form-error" ng-show="payment_form{{$index +1}}.cc_ccv.$dirty && payment_form{{$index +1}}.cc_ccv.$error.pattern" >
-                                        Only 3 digit allowed.
-                                    </div>
-                                    <div class="form-error" ng-show="payment_form{{$index +1}}.cc_ccv.$dirty && payment_form{{$index +1}}.cc_number.$error.number" >
-                                        Please enter valid number.
-                                    </div>
+                                    <div class="form-error" ng-show="payment_form.cc_ccv.$dirty && payment_form.cc_ccv.$error.required" >Please enter security code.</div>
                                     
                                 </form>
                             </div>
