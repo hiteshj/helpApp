@@ -125,9 +125,19 @@ angular.module('app.controllers', ['ionic'])
 $timeout(function () {
               $ionicLoading.hide();
         },1000);
-  $timeout(function () {
-    $ionicLoading.hide();
-  }, 2000);
+ 
+  $scope.signin=false;
+  $scope.signIn=function(){
+
+   $scope.signin = $scope.signin === false ? true: false;  
+  }
+  $scope.location=false;
+  $scope.Location=function(){
+
+
+   $scope.location = $scope.location === false ? true: false;  
+  }
+  
   
   //console.log('helpCtrl')
 
@@ -192,8 +202,8 @@ $timeout(function () {
 
 //* Help  Contoller2*// 
 
-.controller('help2Ctrl', function($scope) {
-  $ionicLoading.hide();
+.controller('help2Ctrl', function($scope, $http,$timeout, $ionicLoading) {
+
 })
 
 //* Main  Contoller2*// 

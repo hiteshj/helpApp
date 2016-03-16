@@ -102,12 +102,52 @@ color:red;
 .item-left{
     width:48%;
     float:left;
+    margin:0px 0px 18px 0px
     
 }
 .item-right{
     width:48%;
-    float:right
+    float:right;
+    margin:0px 0px 18px 0px
 }
 .clear{
     clear:both;
 }
+.help  .item{
+ background-color: #f1f1f1;
+
+}
+.item input{
+ background-color: #fff;
+
+}
+
+.item-left-picture{
+    width:40%;
+    float:left;
+    
+}
+.item-right-button{
+    width:55%;
+    float:right;
+    margin: 77px 0 0 0;
+}
+.button.button-balanced {
+    border-color: #ADD036;
+    background-color: #33cd5f;
+    color: #fff;
+    width: 50%;
+    margin: -27px 0 0px 0;
+}
+h5.field-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+.title{
+    color: #ACD036;
+}
+
+form .item-input input{
+    margin: 8px 0 2px -13px;
+}
+

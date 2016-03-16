@@ -1,0 +1,228 @@
+<ion-view title="Help">
+    <ion-content overflow-scroll="true" padding="false" class="has-header">
+       <ion-list>
+                <ion-item ui-sref="myAccount.help" menu-close="">Maps</ion-item>
+                <ion-item ui-sref="myAccount.help2" menu-close="">My Post</ion-item>
+            </ion-list>
+            <div class="list card">
+                <div class="item item-divider">Account Information</div>
+                <div class="item item-body">
+               <form class="list" name="account_form" id="account_form">
+                    <button class="button button-balanced button-block" ng-disabled="account_form.$invalid" ng-click="accountInformation(account)">Update</button>
+                    <h5>UPDATE PASSWORD</h5>
+                        <label class="item item-input">
+                            <input type="password" ng-model="account.current_password"  ng-required='!!account.new_password' placeholder="Current password">
+                        </label>
+                        <label class="item item-input">
+                            <input type="password" ng-model="account.new_password"  ng-required='!!account_form.new_password' placeholder="New 6-20 alphanumeric characters password">
+                        </label>
+                        <label class="item item-input">
+                            <input type="password" ng-model="account.confirm_password"  ng-required='!!account.new_password' placeholder="Retype password">
+                        </label>
+                        <h5>EMAIL <span> * </span></h5>
+                        <label class="item item-input">
+                            <span class="input-label">name@domain.com</span>
+                           <input type="email" ng-model="account.email" name="email" id="email" required>
+                        </label>
+                            <div class="form-error" ng-show="account_form.email.$dirty && account_form.email.$error.required" >
+                                Please enter email address.
+                            </div>
+                            <div class="form-error" ng-show="account_form.email.$dirty && account_form.email.$error.email" >
+                                Please enter valid email address.
+                            </div>
+                        <h5>MOBILE PHONE</h5>
+                        <label class="item item-input">
+                            <span class="input-label">+1</span>
+                            <input type="number" ng-model="account.mobile" name="mobile" id="mobile" required pattern=".{10}">
+                        </label>
+                            <div class="form-error" ng-show="account_form.mobile.$dirty && account_form.mobile.$error.pattern" >Only 10 digit allowed.</div>
+                            <div class="form-error" ng-show="account_form.mobile.$dirty && account_form.mobile.$error.number" >Please enter valid number.</div>
+                            
+                        <label class="item item-input">
+                            <span class="input-label">(808) 123-4567</span>
+                            <input type="tel" placeholder="">
+                        </label>
+                        <div class="list card">
+                            <div class="item item-divider">PROFILE</div>
+                            <div class="item item-body">
+                                <h5>YOUR NAME</h5>
+                                <!-- First Name -->
+                                    <label class="item item-input">
+                                        <span class="input-label">First name</span>
+                                        <input type="text" ng-model="account.first_name" name="first_name" id="first_name" placeholder="First name">
+                                    </label>
+                                    
+                                    <!-- Last Name -->
+                                    <label class="item item-input">
+                                        <span class="input-label">Last name</span>
+                                        <input type="text" ng-model="account.last_name" name="last_name" id="last_name" placeholder="Last name" >
+                                    </label>
+                               <div class="icon-wrapper-registration">
+                                    <i class="icon ion-image icon-wrapper-registration"></i>
+                                </div>
+                                <button class="button button-positive button-block button-small">TAKE YOUR PHOTO</button>
+                                <button class="button button-positive button-block button-small">CHOOSE FROM GALLERY</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="list card">
+                <div class="item item-divider">Locations</div>
+                   <div data-ng-repeat="accountForm in accountForms">
+                     <div class="item item-body">
+                        <div class="list card">
+                            <div class="item item-divider">Address Title</div>
+                            <ion-checkbox>Default</ion-checkbox>
+                            <div class="buttons">
+                                <button class="button button-icon ion-compose" ng-click="editAccountInformation({{$index +1}})">
+                            </button>
+                            </div>
+                           <div class="item item-body" ng-show="location_form[$index +1]">
+                              <form class="list" name="location_form{{$index +1}}" id="location_form{{$index +1}}">
+                                 <button class="button button-balanced button-block" ng-disabled="location_form{{$index +1}}.$invalid" ng-click="locationInformation(location)">Update
+                                 </button>
+                                 <h5>ADDRESS TITLE</h5>
+                                     <label class="item item-input">
+                                            <input type="text" ng-model="location.address_title" name="address_title" id="address_title"  placeholder="Address Name" required>
+                                     </label>
+                                 <h5>ADDRESS LINE 1</h5>
+                                     <label class="item item-input">
+                                        <input type="text" ng-model="location.address_line1" name="address_line1" id="address_line1"  placeholder="Number and Street" required>
+                                     </label>
+                                 <h5>ADDRESS LINE 2</h5>
+                                    <label class="item item-input">
+                                        <input type="text" ng-model="location.address_line2" name="address_line2" id="address_line2" placeholder="">
+                                    </label>
+                                 <h5>CITY</h5>
+                                    <label class="item item-input">
+                                        <input type="text" ng-model="location.city" name="city" id="city">
+                                    </label>
+                                <h5>STATE</h5>
+                                    <label class="item item-input">
+                                        <input type="text" ng-model="location.state" name="state" id="state">
+                                    </label>
+                                <h5>ZIP CODE</h5>
+                                    <label class="item item-input">
+                                          <input type="number" ng-model="location.zipcode" name="zipcode" id="zipcode" required pattern=".{6}">
+                                    </label>
+                                <div class="form-error" ng-show="location_form{{$index +1}}.zipcode.$dirty && location_form{{$index +1}}.zipcode.$error.pattern" >
+                                    Only 6 digit allowed.
+                                </div>
+                                <div class="form-error" ng-show="location_form{{$index +1}}.zipcode.$dirty && location_form{{$index +1}}.zipcode.$error.number" >
+                                    Please enter valid number.
+                                </div>
+                                <h5>COUNTRY</h5>
+                                <label class="item item-input">
+                                        <input type="text" placeholder="">
+                                </label>
+                                </form>
+                            </div>
+                        </div>
+                        
+                </div>
+                 </div>
+                 <button class="button button-dark button-block button-small icon-left ion-android-add-circle" ng-click="addNewAdress()">ADD ADDRESS</button>
+            </div>
+            <div class="list card">
+                <div class="item item-divider">Payment Information</div>
+                <div class="item item-body">
+                    <div class="list card">
+                    <div class="item item-divider">Card Title</div>
+                    <div class="item item-body" data-ng-repeat="paymentForm in paymentForms">
+                           <ion-checkbox>Default</ion-checkbox>
+                           <div class="buttons">
+                                <button class="button button-icon ion-compose" ng-click="editPaymentInformation({{$index +1}})">
+                            </button>
+                                <div>
+                                    <p>Type:
+                                        <strong>Visa</strong>
+                                    </p>
+
+                                    <p>Name:
+                                        <strong>{{payment.cc_name}}</strong>
+                                        Last 4:
+                                        <strong>x-{{payment.cc_number | limitTo: -4}}</strong>
+                                    </p>
+                                </div>
+                            <div ng-show="payment_form[$index +1]">
+                                  <button class="button button-balanced button-block" ng-disabled="payment_form{{$index +1}}.$invalid">Update</button>
+                               <form class="list" name="payment_form{{$index +1}}" id="payment_form{{$index +1}}">
+                                    <h4>PAYMENT INFORMATION</h4>
+                                    <h5>Your Name</h5>
+                                    <label class="item item-input">
+                                        <input type="text" name="cc_name" id="cc_name" ng-model="payment.cc_name" required placeholder="as it appears on card">
+                                    </label>
+                                    <div class="form-error" ng-show="payment_form.cc_name.$dirty && payment_form.cc_name.$error.required" >Please enter card name.</div>
+
+                                    <h5>CARD NUMBER</h5>
+                                    <label class="item item-input">
+                                        <input type="text" name="cc_number" id="cc_number" ng-model="payment.cc_number" required placeholder="">
+                                    </label>
+                                    <div class="form-error" ng-show="payment_form.cc_number.$dirty && payment_form.cc_number.$error.required" >Please enter card number.</div>
+                                    <h5>Expiration Date</h5>
+                                    <label class="item item-select">
+                                        <span class="input-label">Month</span>
+                                        <select name="cc_month" id="cc_month" ng-model="payment.cc_month">
+                                            <option>2016</option>
+                                            <option>2017</option>
+                                            <option>2018</option>
+                                            <option>2019</option>
+                                            <option>2020</option>
+                                            <option>2021</option>
+                                            <option>2022</option>
+                                            <option>2023</option>
+                                            <option>2024</option>
+                                            <option>2025</option>
+                                            <option>2026</option>
+                                            <option>2027</option>
+                                        </select>
+                                    </label>
+                                    <label class="item item-select">
+                                        <span class="input-label">Year</span>
+                                        <select name="cc_year" id="cc_year" ng-model="payment.cc_year">
+                                            <option>2016</option>
+                                            <option>2017</option>
+                                            <option>2018</option>
+                                            <option>2019</option>
+                                            <option>2020</option>
+                                            <option>2021</option>
+                                            <option>2022</option>
+                                            <option>2023</option>
+                                            <option>2024</option>
+                                            <option>2025</option>
+                                            <option>2026</option>
+                                            <option>2027</option>
+                                        </select>
+                                    </label>
+                                    <h5>SECURITY CODE</h5>
+                                    <label class="item item-input">
+                                        <input type="text" required name="cc_ccv" id="cc_ccv" ng-model="payment.cc_ccv" placeholder="3 or 4 digit code">
+                                    </label>
+                                    <div class="form-error" ng-show="payment_form.cc_ccv.$dirty && payment_form.cc_ccv.$error.required" >Please enter security code.</div>
+                                    
+                                </form>
+                            </div>
+
+                         </div>
+                    </div>
+                 <button class="button button-dark button-block button-small icon-left ion-android-add-circle" ng-click="addNewCard()">Add Card</button>
+                </div>
+            </div>
+            <div class="list card">
+                <div class="item item-divider">Ratings/Feedback</div>
+                <div class="item item-body"></div>
+            </div>
+            <div class="list card">
+                <div class="item item-divider">Legal</div>
+                <div class="item item-body">
+                    <ion-list>
+                        <ion-item>Terms and Conditions</ion-item>
+                        <ion-item>Privacy</ion-item>
+                        <ion-item>Guarantee</ion-item>
+                    </ion-list>
+                </div>
+            </div>
+            <ion-list></ion-list>
+    </ion-content>
+</ion-view>
