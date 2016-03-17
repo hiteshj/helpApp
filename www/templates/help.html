@@ -17,7 +17,7 @@
                         <label class="item item-input">
                             <input type="password" ng-model="account.current_password"  ng-required='!!account.new_password'>
                         </label>
-                        <div class="form-error" ng-show="!!account.new_password" >Please type the current password.</div>
+                        <div class="form-error" ng-show="account_form.email.$error.required" >Please type the current password.</div>
                         <span> Enter new password</span>
                         <label class="item item-input">
                             <input type="password" ng-model="account.new_password"  ng-required='!!account_form.new_password' placeholder="6-20 alphanumeric characters password">
@@ -50,7 +50,7 @@
                         </label>
                                     
                         <!-- Last Name -->
-                        <label class="item-right">
+                        <label class="item item-right">
                             <input type="text" ng-model="account.last_name" name="last_name" id="last_name" placeholder="Last name" >
                         </label>
                         <div class="clear"></div>
@@ -70,38 +70,41 @@
                  <p>Locations</p>
             </div>
             <div class="item-icon-right">
-                <i class="icon ion-ios-arrow-right" ng-click="Location()"></i>
+                <i class="icon ion-ios-arrow-right" ng-click="Locations()"></i>
             </div>
         </ion-item>
-        <div class="item item-body" ng-show="location" ng-repeat="accountForm in accountForms">
-         <form class="list" name="location_form{{$index +1}}" id="location_form{{$index +1}}">
-                <span class="item-left title">Location </span><button class="button item-right button-balanced button-block" ng-disabled="location_form{{$index +1}}.$invalid" ng-click="locationInformation(location)">Update</button>
+        <div class="item item-body"  ng-repeat="accountForm in accountForms">
+        <span class="item-left title">Location </span>
+        <button class="button edit-item-right button-balanced button-block" ng-disabled="location_form{{$index +1}}.$invalid" ng-click="locationInformation(location)">Edit Info</button>
+        <div ng-show="locations">
+        <div ng-show="location_form[$index +1]"> 
+        <form class="list" name="location_form{{$index +1}}" id="location_form{{$index +1}}">
+                <button class="button item-right button-balanced button-block" ng-disabled="location_form{{$index +1}}.$invalid" ng-click="locationInformation(location)">Update</button>
                 <div class="clear"></div>
-
                 <h5 class="fi-title">Address Title</h5>
                     <label class="item item-input">
                                             <input type="text" ng-model="location.address_title" name="address_title" id="address_title"  placeholder="Address Name" required>
                     </label>
                 <h5>ADDRESS LINE 1</h5>
-                                     <label class="item item-input">
-                                        <input type="text" ng-model="location.address_line1" name="address_line1" id="address_line1"  placeholder="Number and Street" required>
+                <label class="item item-input">
+                  <input type="text" ng-model="location.address_line1" name="address_line1" id="address_line1"  placeholder="Number and Street" required>
                 </label>
                 <h5>ADDRESS LINE 2</h5>
                 <label class="item item-input">
                                         <input type="text" ng-model="location.address_line2" name="address_line2" id="address_line2" placeholder="">
                 </label>
-                 <label class="item-left">
+                 <label class="item item-input item-left">
                     <span>City</span>
                     <input type="text" ng-model="location.city" name="city" id="city">
                 </label>
                 
-                <label class="item-right">
+                <label class="item item-input item-right">
                     <span>State</span>
                     <input type="text" ng-model="location.state" name="state" id="state">
                 </label>
                 <div class="clear"></div>
 
-                <label class="item-left">
+                <label class="item item-input item-left">
                     <span>Zip Code</span>
                     <input type="number" ng-model="location.zipcode" name="zipcode" id="zipcode" required pattern=".{6}">
                 </label>
@@ -112,13 +115,14 @@
                                     Please enter valid number.
                 </div>
                  
-                <label class="item-right">
+                <label class="item item-input  item-right">
                     <span>Country</span>
                 <input type="text"  ng-model="location.country">
                 </label>
                 <div class="clear"></div>                
         </form>
-                
+        </div>
+        </div>        
         <button class="button button-dark button-block button-small icon-left ion-android-add-circle" ng-click="addNewAdress()">ADD ADDRESS</button>
         </div>
         <ion-item>
@@ -126,9 +130,75 @@
                  <p>Payment Information</p>
             </div>
             <div class="item-icon-right">
-                <i class="icon ion-ios-arrow-right"></i>
+                <i class="icon ion-ios-arrow-right" ng-click="Payments()"></i>
             </div>
         </ion-item>
+        <div class="item item-body" ng-show="payments" ng-repeat="paymentForm in paymentForms">
+        <div ng-show="payment_form[$index +1]"> 
+        <form class="list" name="payment_form{{$index +1}}" id="payment_form{{$index +1}}">
+                <span class="item-left title">Payment Information </span><button class="button item-right button-balanced button-block" ng-disabled="payment_form{{$index +1}}.$invalid">Update</button>
+                <div class="clear"></div>
+
+                <h5 class="fi-title">Your Name</h5>
+                    <label class="item item-input">
+                     <input type="text" name="cc_name" id="cc_name" ng-model="payment.cc_name" required placeholder="as it appears on card">
+                    </label>
+
+                <div class="form-error" ng-show="payment_form.cc_name.$dirty && payment_form.cc_name.$error.required" >Please enter card name.</div>   
+                <h5>CARD NUMBER</h5>
+                    <label class="item item-input">
+                                        <input type="text" name="cc_number" id="cc_number" ng-model="payment.cc_number" required placeholder="">
+                    </label>
+                   <div class="form-error" ng-show="payment_form.cc_number.$dirty && payment_form.cc_number.$error.required" >Please enter card number.</div>
+
+                
+                 <label class="item-left">
+                    <span>Month</span>
+                   <select name="cc_month" id="cc_month" ng-model="payment.cc_month">
+                                            <option>2016</option>
+                                            <option>2017</option>
+                                            <option>2018</option>
+                                            <option>2019</option>
+                                            <option>2020</option>
+                                            <option>2021</option>
+                                            <option>2022</option>
+                                            <option>2023</option>
+                                            <option>2024</option>
+                                            <option>2025</option>
+                                            <option>2026</option>
+                                            <option>2027</option>
+                                        </select>
+                </label>
+                
+                <label class="item-right">
+                    <span>State</span>
+                    <select name="cc_year" id="cc_year" ng-model="payment.cc_year">
+                                            <option>2016</option>
+                                            <option>2017</option>
+                                            <option>2018</option>
+                                            <option>2019</option>
+                                            <option>2020</option>
+                                            <option>2021</option>
+                                            <option>2022</option>
+                                            <option>2023</option>
+                                            <option>2024</option>
+                                            <option>2025</option>
+                                            <option>2026</option>
+                                            <option>2027</option>
+                                        </select>
+                </label>
+                <div class="clear"></div>
+
+                <h5>SECURITY CODE</h5>
+                <label class="item item-input">
+                    <input type="text" required name="cc_ccv" id="cc_ccv" ng-model="payment.cc_ccv" placeholder="3 or 4 digit code">
+                </label>
+                <div class="form-error" ng-show="payment_form.cc_ccv.$dirty && payment_form.cc_ccv.$error.required" >Please enter security code.</div>               
+        </form>
+        </div>        
+        <button class="button button-dark button-block button-small icon-left ion-android-add-circle" ng-click="addNewCard()">Add Card</button>
+        </div>
+
         <ion-item>
             <div class="item-icon-left">
                  <p>Legal</p>

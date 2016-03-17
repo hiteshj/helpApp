@@ -131,11 +131,14 @@ $timeout(function () {
 
    $scope.signin = $scope.signin === false ? true: false;  
   }
-  $scope.location=false;
-  $scope.Location=function(){
+  $scope.locations=true;
+  $scope.Locations=function(){
+  $scope.locations = $scope.locations === false ? true: false;  
+  }
 
-
-   $scope.location = $scope.location === false ? true: false;  
+   $scope.payments=false;
+  $scope.Payments=function(){
+  $scope.payments = $scope.payments === false ? true: false;  
   }
   
   
